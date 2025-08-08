@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AIVOLVE Innovations - Where Your Vision Meets AI Innovation</title>
+    
+    <!-- Website Icon/Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/YOUR-FAVICON-IMAGE.png">
+    <link rel="shortcut icon" type="image/png" href="https://i.ibb.co/YOUR-FAVICON-IMAGE.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/YOUR-FAVICON-IMAGE.png">
+    
+    <!-- Google Fonts for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ensure footer is last */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        footer {
+            background: #0A5B5D;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+        
+        /* Hide any content after footer */
+        footer ~ * {
+            display: none !important;
+        }
+
+        /* Arabic font styling - Improved */
+        body.rtl {
+            direction: rtl;
+            font-family: 'Cairo', 'Arial', sans-serif;
+        }
+
+        body.rtl * {
+            font-family: 'Cairo', 'Arial', sans-serif;
+            font-size: calc(1em + 1px);
+            font-weight: 500;
+        }
+
+        body.rtl h1, body.rtl h2, body.rtl h3 {
+            font-weight: 700;
+        }
+
+        body.rtl p {
+            line-height: 1.8;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Screen */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .triangle-loader {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid #AEB938;
+            animation: pulse 1.5s ease-in-out infinite, rotate 2s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            padding: 10px 20px;
+            background: rgba(26, 26, 46, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: #AEB938;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            color: #1a1a2e;
+            transform: translateY(-2px);
+        }
+
+        .cta-nav {
+            background: #AEB938;
+            color: #1a1a2e !important;
+            font-weight: bold;
+            animation: subtle-pulse 2s infinite;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(174, 185, 56, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(174, 185, 56, 0.2); }
+        }
+
+        .lang-switch {
+            background: transparent;
+            color: white;
+            border: 2px solid #AEB938;
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            background: #AEB938;
+            color: #1a1a2e;
+            transform: scale(1.05);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            width: 30px;
+            height: 25px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            position: absolute;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-toggle span:nth-child(1) { top: 0; }
+        .menu-toggle span:nth-child(2) { top: 10px; }
+        .menu-toggle span:nth-child(3) { top: 20px; }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 10px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A5B5D 0%, #1a1a2e 100%);
+            padding: 80px 20px 40px;
+            position: relative;
+            animation: gradient-shift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.15;
+            filter: blur(1px);
+        }
+
+        .shape1 {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86px solid #AEB938;
+            top: 20%;
+            left: 10%;
+            animation: float-shape 15s infinite ease-in-out, fade-in-out 4s infinite;
+        }
+
+        .shape2 {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 130px solid #0A5B5D;
+            top: 60%;
+            right: 10%;
+            animation: float-shape 20s infinite ease-in-out reverse, fade-in-out 5s infinite;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(30px, -30px) rotate(120deg) scale(1.1); }
+            66% { transform: translate(-20px, 20px) rotate(240deg) scale(0.9); }
+        }
+
+        @keyframes fade-in-out {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            animation: fade-in-up 1s ease-out;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            margin-bottom: 20px;
+            color: #AEB938;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: title-glow 3s ease-in-out infinite;
+        }
+
+        .hero .tagline {
+            font-size: clamp(20px, 3vw, 28px);
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 300;
+        }
+
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(174, 185, 56, 0.3); }
+            50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 40px rgba(174, 185, 56, 0.5); }
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fade-in 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fade-in {
+            to { opacity: 0.9; }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out 0.8s forwards;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: #AEB938;
+            color: #1a1a2e;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(174, 185, 56, 0.4);
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Vision Section */
+        .vision {
+            padding: 80px 20px;
+            background: #f8f9fa;
+            color: #333;
+            position: relative;
+        }
+
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vision-content h2 {
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 30px;
+            color: #0A5B5D;
+            position: relative;
+            display: inline-block;
+        }
+
+        .vision-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #AEB938;
+            transition: width 0.6s;
+        }
+
+        .vision-content h2.visible::after {
+            width: 100px;
+        }
+
+        .vision-statement {
+            font-size: clamp(20px, 3vw, 28px);
+            color: #0A5B5D;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .vision-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .vision-pillar {
+            padding: 30px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .vision-pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .vision-pillar h3 {
+            color: #0A5B5D;
+            margin-bottom: 10px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #0A5B5D, #1a1a2e);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(174, 185, 56, 0.05) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .services .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(174, 185, 56, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: white;
+        }
+
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            animation: icon-bounce 2s infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .service-card:nth-child(1) .service-icon { --delay: 0s; }
+        .service-card:nth-child(2) .service-icon { --delay: 0.2s; }
+        .service-card:nth-child(3) .service-icon { --delay: 0.4s; }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #0A5B5D;
+            transition: color 0.3s;
+        }
+
+        .service-card:hover h3 {
+            color: #AEB938;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .service-features li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            opacity: 0;
+            animation: slide-in-left 0.5s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        @keyframes slide-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .service-features li:nth-child(1) { --index: 1; }
+        .service-features li:nth-child(2) { --index: 2; }
+        .service-features li:nth-child(3) { --index: 3; }
+
+        .service-features li:before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: #AEB938;
+            font-weight: bold;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0A5B5D 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-choose::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23AEB938" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,138.7C672,149,768,203,864,213.3C960,224,1056,192,1152,165.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .why-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .why-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(174, 185, 56, 0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .why-card:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(174, 185, 56, 0.1);
+            border-color: #AEB938;
+            box-shadow: 0 10px 30px rgba(174, 185, 56, 0.2);
+        }
+
+        .why-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A5B5D, #AEB938);
+            border-radius: 15px;
+            transition: transform 0.3s;
+            font-size: 28px;
+            color: white;
+        }
+
+        .why-card:hover .why-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .why-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #AEB938;
+            transition: color 0.3s;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .why-card:hover p {
+            opacity: 1;
+        }
+
+        /* Clients Section - Fixed */
+        .clients {
+            padding: 80px 20px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .clients h2 {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 50px;
+            color: #0A5B5D;
+        }
+
+        .clients-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .clients-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .clients-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .client-logo {
+            flex: 0 0 250px;
+            margin: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            cursor: grab;
+            user-select: none;
+        }
+
+        .client-logo:active {
+            cursor: grabbing;
+        }
+
+        .client-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .client-logo img {
+            max-width: 200px;
+            max-height: 100px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .carousel-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .carousel-btn {
+            background: #0A5B5D;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .carousel-btn:hover {
+            background: #AEB938;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(174, 185, 56, 0.3);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(135deg, #0A5B5D, #AEB938);
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+        }
+
+        .play-pause-btn:hover {
+            box-shadow: 0 5px 20px rgba(174, 185, 56, 0.4);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .dot:hover {
+            background: #0A5B5D;
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background: #0A5B5D;
+            width: 25px;
+            border-radius: 5px;
+            border-color: #AEB938;
+        }
+
+        /* Dragging styles */
+        .clients-track.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+
+        /* Partners Section */
+        .partners {
+            padding: 80px 20px;
+            background: white;
+            position: relative;
+        }
+
+        .partners h2 {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 50px;
+            color: #0A5B5D;
+        }
+
+        .partners-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .partner-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            filter: grayscale(50%);
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .partner-logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        /* IT Talent Section */
+        .talent {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a2e, #0A5B5D);
+            color: white;
+            position: relative;
+        }
+
+        .talent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .talent h2 {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .talent-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .talent-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .talent-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(174, 185, 56, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .talent-feature:hover {
+            background: rgba(174, 185, 56, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .talent-feature h3 {
+            color: #AEB938;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .talent-feature .number {
+            background: #AEB938;
+            color: #1a1a2e;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #0A5B5D, #1a1a2e);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(174, 185, 56, 0.1) 0%, transparent 70%);
+            animation: float-shape 20s infinite ease-in-out;
+        }
+
+        .contact-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .contact-info-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #AEB938;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            opacity: 0;
+            animation: slide-in-left 0.6s ease forwards;
+            animation-delay: calc(var(--item-index) * 0.1s);
+            transition: transform 0.3s;
+        }
+
+        .contact-item:nth-child(2) { --item-index: 1; }
+        .contact-item:nth-child(3) { --item-index: 2; }
+        .contact-item:nth-child(4) { --item-index: 3; }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(174, 185, 56, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-form:hover {
+            border-color: rgba(174, 185, 56, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #AEB938;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #AEB938;
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            margin-top: 15px;
+            background: #AEB938;
+            color: #1a1a2e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(174, 185, 56, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0A5B5D;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(174, 185, 56, 0.1), transparent);
+            animation: slide-bg 10s linear infinite;
+        }
+
+        @keyframes slide-bg {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            z-index: 1;
+            position: relative;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: #AEB938;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+            z-index: -1;
+        }
+
+        .social-links a:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-links a:hover {
+            color: #1a1a2e;
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #AEB938, #0A5B5D);
+            z-index: 10001;
+            transition: width 0.3s;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 35px;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 26, 46, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                backdrop-filter: blur(10px);
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 20px 40px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 200px;
+                text-align: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .shape1, .shape2 {
+                display: none;
+            }
+
+            .vision-pillars {
+                grid-template-columns: 1fr;
+            }
+
+            .talent-features {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .carousel-controls {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .clients-track {
+                padding: 0 20px;
+            }
+
+            .client-logo {
+                flex: 0 0 200px;
+                margin: 0 15px;
+            }
+        }
+
+        /* Hide elements for language switching */
+        [data-lang] {
+            display: none !important;
+        }
+
+        body:not(.rtl) [data-lang="en"] {
+            display: inline-block !important;
+        }
+
+        body.rtl [data-lang="ar"] {
+            display: inline-block !important;
+        }
+
+        /* Special case for block elements */
+        h1[data-lang], h2[data-lang], h3[data-lang], p[data-lang], div[data-lang] {
+            display: none !important;
+        }
+
+        body:not(.rtl) h1[data-lang="en"], 
+        body:not(.rtl) h2[data-lang="en"], 
+        body:not(.rtl) h3[data-lang="en"], 
+        body:not(.rtl) p[data-lang="en"],
+        body:not(.rtl) div[data-lang="en"] {
+            display: block !important;
+        }
+
+        body.rtl h1[data-lang="ar"], 
+        body.rtl h2[data-lang="ar"], 
+        body.rtl h3[data-lang="ar"], 
+        body.rtl p[data-lang="ar"],
+        body.rtl div[data-lang="ar"] {
+            display: block !important;
+        }
+
+        /* Form inputs special handling */
+        input[data-lang], textarea[data-lang] {
+            display: none !important;
+        }
+
+        body:not(.rtl) input[data-lang="en"], 
+        body:not(.rtl) textarea[data-lang="en"] {
+            display: block !important;
+            width: 100%;
+        }
+
+        body.rtl input[data-lang="ar"], 
+        body.rtl textarea[data-lang="ar"] {
+            display: block !important;
+            width: 100%;
+            text-align: right;
+        }
+
+        /* Cursor effect */
+        .cursor-dot {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #AEB938;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+            mix-blend-mode: difference;
+        }
+
+        /* Parallax effect */
+        .parallax-element {
+            transition: transform 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Cursor Dot -->
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- Loading Screen -->
+    <div class="loader-wrapper" id="loader">
+        <div class="triangle-loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <!-- Replace YOUR-LOGO-IMAGE with your actual image URL from ibb.co -->
+                <img src="https://i.ibb.co/YOUR-LOGO-IMAGE.png" alt="AIVOLVE Logo" class="logo-img">
+            </a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#vision">
+                    <span data-lang="en">Vision</span>
+                    <span data-lang="ar">الرؤية</span>
+                </a></li>
+                <li><a href="#services">
+                    <span data-lang="en">Services</span>
+                    <span data-lang="ar">الخدمات</span>
+                </a></li>
+                <li><a href="#features">
+                    <span data-lang="en">Why Aivolve</span>
+                    <span data-lang="ar">لماذا Aivolve</span>
+                </a></li>
+                <li><a href="#clients">
+                    <span data-lang="en">Clients</span>
+                    <span data-lang="ar">العملاء</span>
+                </a></li>
+                <li><a href="#contact">
+                    <span data-lang="en">Contact</span>
+                    <span data-lang="ar">اتصل</span>
+                </a></li>
+                <li><a href="#contact" class="cta-nav">
+                    <span data-lang="en">Get Started</span>
+                    <span data-lang="ar">ابدأ الآن</span>
+                </a></li>
+                <li><button class="lang-switch" onclick="toggleLanguage()">AR</button></li>
+            </ul>
+            
+            <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero parallax-element" id="home">
+        <div class="floating-shapes">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+        </div>
+        <div class="hero-content">
+            <h1 data-lang="en">AIVOLVE INNOVATIONS</h1>
+            <h1 data-lang="ar">AIVOLVE للابتكارات</h1>
+            
+            <p class="tagline" data-lang="en">Where Your Vision Meets AI Innovation</p>
+            <p class="tagline" data-lang="ar">حيث تلتقي رؤيتك بابتكار الذكاء الاصطناعي</p>
+            
+            <p data-lang="en">Smart Tech. Real Results. Leveraging AI for Business Solutions.</p>
+            <p data-lang="ar">تقنية ذكية. نتائج حقيقية. الاستفادة من الذكاء الاصطناعي لحلول الأعمال.</p>
+            
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <span data-lang="en">Start Your Transformation</span>
+                    <span data-lang="ar">ابدأ التحول الرقمي</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision" id="vision">
+        <div class="vision-content reveal">
+            <h2>
+                <span data-lang="en">Our Vision</span>
+                <span data-lang="ar">رؤيتنا</span>
+            </h2>
+            <p class="vision-statement">
+                <span data-lang="en">Empowering growth through Smart Tech, Elite Talents, and Trusted Innovations.</span>
+                <span data-lang="ar">تمكين النمو من خلال التقنية الذكية والمواهب المتميزة والابتكارات الموثوقة.</span>
+            </p>
+            
+            <div class="vision-pillars">
+                <div class="vision-pillar reveal">
+                    <h3>
+                        <span data-lang="en">Elite Talents</span>
+                        <span data-lang="ar">المواهب المتميزة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Access to world-class IT professionals across all domains</span>
+                        <span data-lang="ar">الوصول إلى محترفي تقنية المعلومات على مستوى عالمي في جميع المجالات</span>
+                    </p>
+                </div>
+                <div class="vision-pillar reveal">
+                    <h3>
+                        <span data-lang="en">Smart Tech</span>
+                        <span data-lang="ar">التقنية الذكية</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Cutting-edge AI and automation solutions that drive efficiency</span>
+                        <span data-lang="ar">حلول الذكاء الاصطناعي والأتمتة المتطورة التي تحقق الكفاءة</span>
+                    </p>
+                </div>
+                <div class="vision-pillar reveal">
+                    <h3>
+                        <span data-lang="en">Trusted Innovations</span>
+                        <span data-lang="ar">الابتكارات الموثوقة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Proven solutions backed by deep expertise and strong partnerships</span>
+                        <span data-lang="ar">حلول مثبتة مدعومة بخبرة عميقة وشراكات قوية</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title reveal">
+            <span data-lang="en">What We Deliver</span>
+            <span data-lang="ar">ما نقدمه</span>
+        </h2>
+        <p class="section-subtitle reveal">
+            <span data-lang="en">Comprehensive AI-driven solutions tailored to your business needs</span>
+            <span data-lang="ar">حلول شاملة مدعومة بالذكاء الاصطناعي مصممة خصيصاً لاحتياجات عملك</span>
+        </p>
+        
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">💻</div>
+                <h3>
+                    <span data-lang="en">Custom Software Development</span>
+                    <span data-lang="ar">تطوير البرمجيات المخصصة</span>
+                </h3>
+                <p>
+                    <span data-lang="en">Scalable, integrated solutions tailored to your unique business needs</span>
+                    <span data-lang="ar">حلول قابلة للتطوير ومتكاملة مصممة خصيصاً لاحتياجات عملك الفريدة</span>
+                </p>
+                <ul class="service-features">
+                    <li>
+                        <span data-lang="en">AI & Advanced Analytics</span>
+                        <span data-lang="ar">الذكاء الاصطناعي والتحليلات المتقدمة</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">System Integration</span>
+                        <span data-lang="ar">تكامل الأنظمة</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">Data Analytics</span>
+                        <span data-lang="ar">تحليل البيانات</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="service-card reveal">
+                <div class="service-icon">☁️</div>
+                <h3>
+                    <span data-lang="en">Cloud Infrastructure</span>
+                    <span data-lang="ar">البنية التحتية السحابية</span>
+                </h3>
+                <p>
+                    <span data-lang="en">Secure, scalable, and future-ready architectures that grow with you</span>
+                    <span data-lang="ar">بنية تحتية آمنة وقابلة للتطوير وجاهزة للمستقبل تنمو معك</span>
+                </p>
+                <ul class="service-features">
+                    <li>
+                        <span data-lang="en">Cloud Migration</span>
+                        <span data-lang="ar">الترحيل السحابي</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">Hybrid Cloud Solutions</span>
+                        <span data-lang="ar">حلول السحابة الهجينة</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">Cloud Security</span>
+                        <span data-lang="ar">أمن السحابة</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="service-card reveal">
+                <div class="service-icon">🛡️</div>
+                <h3>
+                    <span data-lang="en">Managed IT Services</span>
+                    <span data-lang="ar">خدمات تقنية المعلومات المُدارة</span>
+                </h3>
+                <p>
+                    <span data-lang="en">End-to-end management of IT operations, infrastructure, and services—so you can focus on your core business</span>
+                    <span data-lang="ar">إدارة شاملة لعمليات وبنية تحتية وخدمات تقنية المعلومات لتتمكن من التركيز على عملك الأساسي</span>
+                </p>
+                <ul class="service-features">
+                    <li>
+                        <span data-lang="en">Cybersecurity</span>
+                        <span data-lang="ar">الأمن السيبراني</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">Network Management</span>
+                        <span data-lang="ar">إدارة الشبكات</span>
+                    </li>
+                    <li>
+                        <span data-lang="en">24/7 Support</span>
+                        <span data-lang="ar">دعم على مدار الساعة</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose" id="features">
+        <h2 class="section-title reveal" style="color: white;">
+            <span data-lang="en">Why Choose Aivolve?</span>
+            <span data-lang="ar">لماذا تختار Aivolve؟</span>
+        </h2>
+        
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <div class="why-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 3.31L18 8v8.93c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83V8l6-2.69z"/>
+                        <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9z"/>
+                    </svg>
+                </div>
+                <h3>
+                    <span data-lang="en">Tailored Solutions</span>
+                    <span data-lang="ar">حلول مخصصة</span>
+                </h3>
+                <p>
+                    <span data-lang="en">We build around your workflows, not one-size-fits-all templates</span>
+                    <span data-lang="ar">نبني حول سير عملك، وليس قوالب واحدة تناسب الجميع</span>
+                </p>
+            </div>
+            
+            <div class="why-card reveal">
+                <div class="why-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+                        <path d="M12 7v5l4.28 2.54.72-1.21-3.5-2.08V7H12z"/>
+                    </svg>
+                </div>
+                <h3>
+                    <span data-lang="en">Agile Delivery</span>
+                    <span data-lang="ar">التسليم السريع</span>
+                </h3>
+                <p>
+                    <span data-lang="en">Fast, flexible development without compromising quality</span>
+                    <span data-lang="ar">تطوير سريع ومرن دون التنازل عن الجودة</span>
+                </p>
+            </div>
+            
+            <div class="why-card reveal">
+                <div class="why-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                        <path d="M3 22h18v-2H3v2z"/>
+                    </svg>
+                </div>
+                <h3>
+                    <span data-lang="en">High ROI</span>
+                    <span data-lang="ar">عائد استثمار مرتفع</span>
+                </h3>
+                <p>
+                    <span data-lang="en">Intelligent automation that boosts efficiency and cuts cost</span>
+                    <span data-lang="ar">أتمتة ذكية تعزز الكفاءة وتقلل التكاليف</span>
+                </p>
+            </div>
+            
+            <div class="why-card reveal">
+                <div class="why-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <h3>
+                    <span data-lang="en">Scalable by Design</span>
+                    <span data-lang="ar">قابل للتطوير بالتصميم</span>
+                </h3>
+                <p>
+                    <span data-lang="en">Engineered to grow with your business</span>
+                    <span data-lang="ar">مصمم للنمو مع عملك</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- IT Talent Partner Section -->
+    <section class="talent" id="talent">
+        <div class="talent-content reveal">
+            <h2>
+                <span data-lang="en">Your IT Talent Partner</span>
+                <span data-lang="ar">شريكك في مواهب تقنية المعلومات</span>
+            </h2>
+            <p class="talent-description">
+                <span data-lang="en">Through our Offshore-based subsidiary, we specialize in recruiting world-class IT professionals across a wide range of domains. We operate with a highly sophisticated recruitment framework, capable of allocating top IT talent across all domains typically within 10–15 business days.</span>
+                <span data-lang="ar">من خلال شركتنا الفرعية الخارجية، نتخصص في توظيف محترفي تقنية المعلومات على مستوى عالمي عبر مجموعة واسعة من المجالات. نعمل بإطار توظيف متطور للغاية، قادر على تخصيص أفضل مواهب تقنية المعلومات عبر جميع المجالات عادة خلال 10-15 يوم عمل.</span>
+            </p>
+            
+            <div class="talent-features">
+                <div class="talent-feature reveal">
+                    <h3>
+                        <span class="number">01</span>
+                        <span data-lang="en">Cost-Effective Staffing</span>
+                        <span data-lang="ar">توظيف فعال من حيث التكلفة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Access top talent without breaking your budget</span>
+                        <span data-lang="ar">الوصول إلى أفضل المواهب دون تجاوز ميزانيتك</span>
+                    </p>
+                </div>
+                
+                <div class="talent-feature reveal">
+                    <h3>
+                        <span class="number">02</span>
+                        <span data-lang="en">Flexible Service Solutions</span>
+                        <span data-lang="ar">حلول خدمة مرنة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">From team augmentation to full project outsourcing</span>
+                        <span data-lang="ar">من تعزيز الفريق إلى الاستعانة بمصادر خارجية للمشروع بالكامل</span>
+                    </p>
+                </div>
+                
+                <div class="talent-feature reveal">
+                    <h3>
+                        <span class="number">03</span>
+                        <span data-lang="en">Deep Technical Expertise</span>
+                        <span data-lang="ar">خبرة تقنية عميقة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Specialists across all IT domains and technologies</span>
+                        <span data-lang="ar">متخصصون في جميع مجالات وتقنيات تقنية المعلومات</span>
+                    </p>
+                </div>
+                
+                <div class="talent-feature reveal">
+                    <h3>
+                        <span class="number">04</span>
+                        <span data-lang="en">Dynamic Recruitment</span>
+                        <span data-lang="ar">التوظيف الديناميكي</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Quick deployment within 10-15 business days</span>
+                        <span data-lang="ar">نشر سريع خلال 10-15 يوم عمل</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section - FIXED -->
+    <section class="clients" id="clients">
+        <h2 class="reveal">
+            <span data-lang="en">Our Clients</span>
+            <span data-lang="ar">عملاؤنا</span>
+        </h2>
+        
+        <div class="clients-container">
+            <div class="clients-wrapper">
+                <div class="clients-track" id="clientsTrack">
+                    <!-- Client logos -->
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/7xFk810W/client1.png" alt="Takamul">
+                    </div>
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/BV5qYM6M/client2.png" alt="FAB">
+                    </div>
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/5XvZTkkP/client3.png" alt="Adwar">
+                    </div>
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/dsZK3730/client4.png" alt="Saudi Central Bank">
+                    </div>
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/rR183cMZ/client5.png" alt="Taqeem">
+                    </div>
+                    <div class="client-logo">
+                        <img src="https://i.ibb.co/PShVTxB/client6.png" alt="Salik">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Controls -->
+            <div class="carousel-controls">
+                <div class="carousel-nav">
+                    <button class="carousel-btn" id="prevBtn">‹</button>
+                    <button class="play-pause-btn carousel-btn" id="playPauseBtn">❚❚</button>
+                    <button class="carousel-btn" id="nextBtn">›</button>
+                </div>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2 class="section-title reveal" style="color: white;">
+                <span data-lang="en">Let's Create Tomorrow</span>
+                <span data-lang="ar">لنصنع الغد معاً</span>
+            </h2>
+            <p class="section-subtitle reveal" style="color: white;">
+                <span data-lang="en">AI innovations. Elite talents. Your future, redefined.</span>
+                <span data-lang="ar">ابتكارات الذكاء الاصطناعي. مواهب متميزة. مستقبلك، معاد تعريفه.</span>
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-info-section reveal">
+                    <h3>
+                        <span data-lang="en">Contact Information</span>
+                        <span data-lang="ar">معلومات الاتصال</span>
+                    </h3>
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>info@aivolve.sa</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span dir="ltr">+966554021112</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>
+                            <span data-lang="en">Riyadh, Kingdom of Saudi Arabia</span>
+                            <span data-lang="ar">الرياض، المملكة العربية السعودية</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <form class="contact-form reveal">
+                    <h3>
+                        <span data-lang="en">Send us a message</span>
+                        <span data-lang="ar">أرسل لنا رسالة</span>
+                    </h3>
+                    <div class="form-group">
+                        <input type="text" data-lang="en" placeholder="Your Name" required>
+                        <input type="text" data-lang="ar" placeholder="اسمك" required>
+                        <input type="email" data-lang="en" placeholder="Your Email" required>
+                        <input type="email" data-lang="ar" placeholder="بريدك الإلكتروني" required>
+                    </div>
+                    <input type="text" data-lang="en" placeholder="Subject" style="width: 100%; margin-bottom: 15px;" required>
+                    <input type="text" data-lang="ar" placeholder="الموضوع" style="width: 100%; margin-bottom: 15px;" required>
+                    <textarea data-lang="en" placeholder="Your Message" required></textarea>
+                    <textarea data-lang="ar" placeholder="رسالتك" required></textarea>
+                    <button type="submit" class="btn btn-primary">
+                        <span data-lang="en">Send Message</span>
+                        <span data-lang="ar">إرسال الرسالة</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="color: #AEB938;">AIVOLVE Innovations</h3>
+            <p>
+                <span data-lang="en">Leveraging AI for Business Solutions</span>
+                <span data-lang="ar">الاستفادة من الذكاء الاصطناعي لحلول الأعمال</span>
+            </p>
+            
+            <div class="social-links">
+                <a href="mailto:info@aivolve.sa" title="Email">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com" title="Twitter/X">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <p style="margin-top: 20px; opacity: 0.8;">
+                <span data-lang="en">© 2024 Aivolve Innovations. All rights reserved.</span>
+                <span data-lang="ar">© 2024 Aivolve للابتكارات. جميع الحقوق محفوظة.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('fade-out');
+                // Trigger initial animations
+                document.querySelectorAll('.hero-content > *').forEach((el, i) => {
+                    setTimeout(() => el.style.opacity = '1', i * 200);
+                });
+            }, 1500);
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Enhanced navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Hide/show navbar on scroll
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Enhanced mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.getElementById('menuToggle');
+            
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        // Language toggle with animation
+        function toggleLanguage() {
+            const body = document.body;
+            const langBtn = document.querySelector('.lang-switch');
+            
+            body.style.transition = 'opacity 0.3s';
+            body.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                if (body.classList.contains('rtl')) {
+                    body.classList.remove('rtl');
+                    langBtn.textContent = 'AR';
+                } else {
+                    body.classList.add('rtl');
+                    langBtn.textContent = 'EN';
+                }
+                body.style.opacity = '1';
+            }, 300);
+        }
+
+        // Smooth scrolling with easing
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 70;
+                    const targetPosition = target.offsetTop - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                    document.getElementById('menuToggle').classList.remove('active');
+                }
+            });
+        });
+
+        // Enhanced form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('.btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Sending...';
+            button.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                button.textContent = '✓ Sent!';
+                button.style.background = '#4CAF50';
+                
+                setTimeout(() => {
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                    button.textContent = originalText;
+                    button.style.background = '#AEB938';
+                    button.style.opacity = '1';
+                }, 1000);
+            }, 1500);
+        });
+
+        // Cursor effect (desktop only)
+        if (window.innerWidth > 768) {
+            const cursor = document.getElementById('cursorDot');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 5 + 'px';
+                cursor.style.top = e.clientY - 5 + 'px';
+            });
+            
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(2)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                });
+            });
+        } else {
+            document.getElementById('cursorDot').style.display = 'none';
+        }
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-features li').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Vision section title underline animation
+        const visionTitle = document.querySelector('.vision-content h2');
+        if (visionTitle) {
+            const visionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            });
+            visionObserver.observe(visionTitle);
+        }
+
+        // Client Carousel - FIXED JAVASCRIPT
+        const clientsTrack = document.getElementById('clientsTrack');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('carouselDots');
+        
+        let currentIndex = 0;
+        let isPlaying = true;
+        let autoPlayInterval;
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+        
+        // Get original client logos
+        const originalLogos = clientsTrack.querySelectorAll('.client-logo');
+        const numLogos = originalLogos.length;
+        
+        // Clone logos for infinite loop effect
+        originalLogos.forEach(logo => {
+            const clone = logo.cloneNode(true);
+            clientsTrack.appendChild(clone);
+        });
+        
+        // Create dots for navigation
+        for (let i = 0; i < numLogos; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        
+        function updateCarousel() {
+            const slideWidth = 280; // 250px width + 30px margin
+            const offset = currentIndex * slideWidth;
+            clientsTrack.style.transform = `translateX(-${offset}px)`;
+            
+            // Update dots
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex % numLogos);
+            });
+        }
+        
+        function moveCarousel(direction) {
+            currentIndex += direction;
+            
+            // Handle infinite loop
+            if (currentIndex < 0) {
+                currentIndex = numLogos - 1;
+                clientsTrack.style.transition = 'none';
+                currentIndex = numLogos * 2 - 1;
+                updateCarousel();
+                setTimeout(() => {
+                    clientsTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    currentIndex = numLogos - 1;
+                    updateCarousel();
+                }, 50);
+            } else if (currentIndex >= numLogos * 2) {
+                clientsTrack.style.transition = 'none';
+                currentIndex = numLogos;
+                updateCarousel();
+                setTimeout(() => {
+                    clientsTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    currentIndex = 0;
+                    updateCarousel();
+                }, 50);
+            } else if (currentIndex >= numLogos && currentIndex < numLogos * 2) {
+                updateCarousel();
+                if (currentIndex === numLogos) {
+                    setTimeout(() => {
+                        clientsTrack.style.transition = 'none';
+                        currentIndex = 0;
+                        updateCarousel();
+                        setTimeout(() => {
+                            clientsTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        }, 50);
+                    }, 500);
+                }
+            } else {
+                updateCarousel();
+            }
+        }
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+            if (isPlaying) {
+                stopAutoPlay();
+                startAutoPlay();
+            }
+        }
+        
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                moveCarousel(1);
+            }, 3000);
+        }
+        
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+        
+        function togglePlayPause() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playPauseBtn.innerHTML = '❚❚';
+                startAutoPlay();
+            } else {
+                playPauseBtn.innerHTML = '▶';
+                stopAutoPlay();
+            }
+        }
+        
+        // Event listeners for controls
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        
+        prevBtn.addEventListener('click', () => {
+            if (isPlaying) stopAutoPlay();
+            moveCarousel(-1);
+            if (isPlaying) startAutoPlay();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (isPlaying) stopAutoPlay();
+            moveCarousel(1);
+            if (isPlaying) startAutoPlay();
+        });
+        
+        // Drag functionality
+        function startDragging(e) {
+            isDragging = true;
+            clientsTrack.classList.add('dragging');
+            startX = e.pageX || e.clientX;
+            scrollLeft = currentIndex * 280;
+            if (isPlaying) stopAutoPlay();
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX || e.clientX;
+            const walk = (startX - x) * 2;
+            const newTransform = -(scrollLeft + walk);
+            clientsTrack.style.transform = `translateX(${newTransform}px)`;
+        }
+        
+        function stopDragging() {
+            if (!isDragging) return;
+            isDragging = false;
+            clientsTrack.classList.remove('dragging');
+            
+            // Snap to nearest slide
+            const transform = clientsTrack.style.transform;
+            const currentTransform = parseInt(transform.replace('translateX(', '').replace('px)', '')) || 0;
+            const slideWidth = 280;
+            const newIndex = Math.round(Math.abs(currentTransform) / slideWidth);
+            currentIndex = Math.min(Math.max(newIndex, 0), numLogos * 2 - 1);
+            updateCarousel();
+            
+            if (isPlaying) startAutoPlay();
+        }
+        
+        // Mouse events
+        clientsTrack.addEventListener('mousedown', startDragging);
+        clientsTrack.addEventListener('mousemove', drag);
+        clientsTrack.addEventListener('mouseup', stopDragging);
+        clientsTrack.addEventListener('mouseleave', stopDragging);
+        
+        // Touch events
+        clientsTrack.addEventListener('touchstart', (e) => startDragging(e.touches[0]));
+        clientsTrack.addEventListener('touchmove', (e) => drag(e.touches[0]));
+        clientsTrack.addEventListener('touchend', stopDragging);
+        
+        // Pause on hover
+        clientsTrack.addEventListener('mouseenter', () => {
+            if (isPlaying && !isDragging) stopAutoPlay();
+        });
+        
+        clientsTrack.addEventListener('mouseleave', () => {
+            if (isPlaying && !isDragging) startAutoPlay();
+        });
+        
+        // Start autoplay
+        if (isPlaying) startAutoPlay();
+    </script>
+</body>
+</html>
